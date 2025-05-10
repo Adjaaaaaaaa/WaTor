@@ -5,5 +5,5 @@ class Tuna(Fish):
     """ 
     creation of the prey class
     """
-    def __init__(self):
-        super().__init__() 
+    def __init__(self, x, y):
+        super().__init__(x, y)
