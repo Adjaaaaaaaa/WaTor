@@ -45,7 +45,7 @@ Un chronon représente une unité de temps dans la simulation.
 
 - Des statistiques peuvent être collectées : nombre de thons, de requins, etc.
 
-### 🔁 Grille Torique
+### 🔁 Environnement toroïdal
 La grille est fermée sur elle-même :
 
 - Aller à droite du bord droit revient à gauche.
