@@ -1,5 +1,5 @@
 from .config import SHARK_ENERGY_GAIN,SHARK_REPRODUCTION_TIME, SHARK_INITIAL_ENERGY
-from core.fish import Fish
+from .fish import Fish
 
 class Shark (Fish):
     """
