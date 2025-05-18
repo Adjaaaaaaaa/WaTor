@@ -1,26 +1,27 @@
+from abc import ABC
 import random
-class Fish:
+class Fish(ABC):
     """ 
      Create an abstract class Fish to represent a living entity in the ecosystem 
      (tuna or shark), with common methods.
 
     """
-    
+    reproduction_time: int = 0
+    age: int = 0
+   
     # donne à l'entité créeé une position dans la grille
-    def __init__(self, x, y):
-        self.age = 0
+    def __init__(self, x: int, y:int) -> None:
         self.x = x
         self.y = y
         self.neighbors = []
         self.last_x = None
         self.last_y = None
-        #self.grid =grid
+       
         
 
-    # retourne les déplacements possibles:
-    # les directions possibles par rapport à l'entité:  droit, gauche, haut et bas (0,1), (0,-1), (-1,0),(1,0)
+    # retourne les déplacements possibles: les directions possibles par rapport à l'entité:  droit, gauche, haut et bas (0,1), (0,-1), (-1,0),(1,0)
 
-    def get_neighbors(self):
+    def get_neighbors(self) -> list[tuple]:
         self.neighbors = [(self.x,self.y+1), (self.x,self.y-1), (self.x-1,self.y),(self.x+1,self.y)]
         return self.neighbors
     
