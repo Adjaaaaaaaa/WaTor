@@ -1,69 +1,109 @@
 from .config import WIDTH, HEIGHT
+import random
+
 class Simulation:
     """
-    A class that manages and runs the simulation.
+    Manages the main loop and logic of the Wa-Tor simulation.
 
-    This class handles the simulation lifecycle, including initialization,
-    reset, toggling between start and pause, and periodic simulation steps.
-    It operates on a 2D grid where entities act based on their context.
-
+    Controls the simulation state, handles entity behavior, and updates the graphical interface.
+    
     Attributes:
-    app (object): Reference to the main application that owns this simulation.
-    chronon (int): The current time step of the simulation.
-    running (bool): Indicates whether the simulation is active or paused.
-    start_btn (str): Label for the start/pause button.
-    history (list): Stores the history of simulation steps (currently unused).
-    grid (list): A 2D list representing the simulation grid.
-
-    Methods:
-    __init__(app):
-    Initializes the simulation with a reference to the main app.
-
-    reset():
-    Resets the simulation state to its initial configuration and repopulates the grid.
-
-    stop_simulation(screen):
-    Stops the simulation and closes the given GUI window.
-
-    toggle_simulation():
-    Starts or pauses the simulation based on its current state.
-
-    simulate():
-    Performs a single time step of the simulation by updating all entities in the grid.
+    app: Reference to the main application (UI and planet).
+    chronon (int): Current simulation time step.
+    running (bool): Indicates whether the simulation is running.
+    grid : Simulation grid storing entities.
     """
-
-
     def __init__(self, app) -> None:
+        """
+        Initializes the Simulation object.
+
+        Args:
+        app: Reference to the main application, which holds the planet and UI.
+
+        Returns:
+        None
+        """
         self.app = app
         self.chronon = 0
         self.running = False
-        self.start_btn = "Start"
-        self.history = []
         self.grid = [[None for _ in range(WIDTH)] for _ in range(HEIGHT)]
 
-    def reset(self)-> None:
+    def reset(self) -> None:
+        """
+        Resets the simulation to its initial state:
+        - Chronon counter set to 0.
+        - Simulation paused.
+        - Grid cleared and repopulated.
+        - UI redrawn.
+
+        Returns:
+        None
+        """
         self.chronon = 0
-        self.history.clear()
         self.running = False
-        self.start_btn = "Start"
         self.grid = [[None for _ in range(WIDTH)] for _ in range(HEIGHT)]
-
         self.app.planet.grid = self.grid
         self.app.planet.populate()
         self.app.draw()
 
-    def stop_simulation(self, screen)-> None:
+    def stop_simulation(self, screen) -> None:
+        """
+        Stops the simulation and closes the UI window.
+
+        Args:
+        screen: The GUI screen or window to be destroyed.
+
+        Returns:
+        None
+        """
         self.running = False
         screen.destroy()
 
-    def toggle_simulation(self)-> None:
-        if not self.running:
-            self.running = True
-            print("Démarrer")
-            self.simulate()
-        else:
-            self.running = False
-            print("Pause")
+    def toggle_simulation(self) -> None:
+        """
+        Toggles the simulation state:
+        - Starts the simulation loop if it was stopped.
+        - Pauses it if it was running.
 
-    def simulate(self)-> None:
-       pass
+        Returns:
+        None
+        """
+        self.running = not self.running
+        if self.running:
+            self.simulate()
+
+    def simulate(self) -> None:
+        """
+        Executes one step (chronon) of the simulation:
+        - Increments time step.
+        - Shuffles entity positions for randomized actions.
+        - Ensures each entity acts only once per chronon.
+        - Updates the UI.
+        - Schedules the next step after 200ms.
+
+        Returns:
+        None
+        """
+        if not self.running:
+            return
+        self.chronon += 1
+
+        # Liste des positions à traiter
+        positions = [(x, y) for y in range(HEIGHT) for x in range(WIDTH)]
+        random.shuffle(positions)
+
+        # Pour éviter que deux entités n'agissent deux fois, on garde trace
+        acted = set()
+
+        for x, y in positions:
+            if (x, y) in acted:
+                continue
+            entity = self.grid[y][x]
+            if entity is None:
+                continue
+            entity.set_context(x, y, self.app.planet)
+            entity.act()
+            acted.add((entity.x, entity.y))
+
+        self.app.draw()
+        self.app.screen.after(200, self.simulate)
