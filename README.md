@@ -54,6 +54,7 @@ La grille est fermée sur elle-même :
 
 - Cela empêche les entités de sortir de la grille.
 
+
 ## 🎯 Objectif de la Simulation
 - Observer les dynamiques de population : croissance, décroissance, extinction.
 

@@ -1,0 +1,64 @@
+@startuml
+
+' Abstract base class
+abstract class Fish {
+    - x: int
+    - y: int
+    - age: int
+    - reproduction_time: int
+    - planet: Planet
+    - grid: list
+   
+    + set_context(x, y, planet): void
+    + get_neighbors(): list
+    + basic_move(): void
+    + reproduce(): void
+    + act(): void
+}
+
+class Tuna {
+    + act(): void
+}
+
+class Shark {
+    - energy: int
+    + act(): void
+    + eat(): bool
+}
+
+Fish <|-- Tuna
+Fish <|-- Shark
+
+class Planet {
+    - grid: list
+    + populate(): void
+}
+
+class Simulation {
+    - chronon: int
+    - running: bool
+    - grid: list
+    - app: WaTor
+    + reset(): void
+    + simulate(): void
+    + toggle_simulation(): void
+    + stop_simulation(screen): void
+}
+
+class WaTor {
+    - screen
+    - canvas
+    - planet: Planet
+    - simulation: Simulation
+    - history: list
+    + draw(): void
+    + toggle_simulation(): void
+    + show_history(): void
+}
+
+WaTor --> Planet
+WaTor --> Simulation
+Simulation --> Planet
+Planet --> Fish
+
+@enduml
