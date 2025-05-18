@@ -11,7 +11,7 @@ WATOR/
 │   │   └── simulation.py
 │   └── ui/
 │       ├── __init__.py
-│       └── screen.py
+│       └── window.py
 ├── assets/
 │   ├── tuna.png
 │   ├── shark.png

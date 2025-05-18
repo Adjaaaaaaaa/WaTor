@@ -1,41 +1,49 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 import random
-class Fish(ABC):
-    """ 
-     Create an abstract class Fish to represent a living entity in the ecosystem 
-     (tuna or shark), with common methods.
 
-    """
-    reproduction_time: int = 0
-    age: int = 0
-   
-    # donne à l'entité créeé une position dans la grille
-    def __init__(self, x: int, y:int) -> None:
+class Fish(ABC):
+    def __init__(self, x: int, y: int, reproduction_time: int, planet=None) -> None:
+        self.age = 0
+        self.reproduction_time = reproduction_time
         self.x = x
         self.y = y
-        self.neighbors = []
-        self.last_x = None
-        self.last_y = None
-       
-        
+        self.planet = planet
+        self.grid = planet.grid if planet else None
+        self.energy = None  # utile pour Shark
 
-    # retourne les déplacements possibles: les directions possibles par rapport à l'entité:  droit, gauche, haut et bas (0,1), (0,-1), (-1,0),(1,0)
+    def set_context(self, x, y, planet):
+        self.x = x
+        self.y = y
+        self.planet = planet
+        self.grid = planet.grid
 
-    def get_neighbors(self) -> list[tuple]:
-        self.neighbors = [(self.x,self.y+1), (self.x,self.y-1), (self.x-1,self.y),(self.x+1,self.y)]
-        return self.neighbors
-    
-    # placement des poissons à la nouvelle position après 
+    def get_neighbors(self):
+        neighbors = []
+        for dx, dy in [(0,1),(0,-1),(-1,0),(1,0)]:
+            nx, ny = self.x + dx, self.y + dy
+            if 0 <= nx < len(self.grid[0]) and 0 <= ny < len(self.grid):
+                neighbors.append((nx, ny))
+        return neighbors
+
     def basic_move(self):
-        neighbors = self.get_neighbors()
-        empty_neighbors = [(nx,ny) for (nx,ny) in neighbors if self.grid[nx][ny] is None]
-        random.choice(empty_neighbors)
+        empty_neighbors = [(nx, ny) for (nx, ny) in self.get_neighbors() if self.grid[ny][nx] is None]
         if empty_neighbors:
-            self.x, self.y = self.nx, self.ny
-            self.grid[nx][ny] = self
-            self.grid[x][y] is None
-            
+            nx, ny = random.choice(empty_neighbors)
+            self.grid[ny][nx] = self
+            self.grid[self.y][self.x] = None
+            self.x, self.y = nx, ny
 
+    def reproduce(self):
+        self.age += 1
+        if self.age >= self.reproduction_time:
+            empty_neighbors = [(nx, ny) for (nx, ny) in self.get_neighbors() if self.grid[ny][nx] is None]
+            if empty_neighbors:
+                nx, ny = random.choice(empty_neighbors)
+                # crée un nouveau poisson à côté
+                baby = self.__class__(nx, ny, self.reproduction_time, planet=self.planet)
+                self.grid[ny][nx] = baby
+                self.age = 0
 
-
-       
+    @abstractmethod
+    def act(self):
+        pass
