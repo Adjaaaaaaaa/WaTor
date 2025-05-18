@@ -1,5 +1,5 @@
-🌊 Projet Wa-Tor – Simulation d'écosystème marin
-📁 Structure du projet
+# 🌊  Projet Wa-Tor – Simulation d'écosystème marin
+## 📁 Structure du projet
 WATOR/
 ├── src/
 │   ├── core/
@@ -18,12 +18,12 @@ WATOR/
 │   ├── shark.png              # Image du requin
 ├── main.py                    # Point d'entrée du programme
 ├── requirements.txt           # Dépendances du projet
-🌐 Principe Général
+## 🌐 Principe Général
 Wa-Tor est une simulation d’écosystème marin où thons (tuna) et requins (sharks) interagissent sur une grille torique (le monde "boucle" sur lui-même comme un globe).
 
 L'objectif est d'observer l'évolution des populations et l'équilibre naturel entre proies et prédateurs.
 
-🐟 Les Thons (Tuna)
+### 🐟 Les Thons (Tuna)
 Rôle : Proies
 
 Comportement :
@@ -34,7 +34,7 @@ Se reproduisent après un certain nombre de chronons (TUNA_REPRODUCTION_TIME).
 
 Ne meurent pas de faim.
 
-🦈 Les Requins (Shark)
+### 🦈 Les Requins (Shark)
 Rôle : Prédateurs
 
 Comportement :
@@ -47,7 +47,7 @@ Se reproduisent après SHARK_REPRODUCTION_TIME.
 
 Meurent de faim.
 
-⏱️ Chronons
+### ⏱️ Chronons
 Un chronon représente une unité de temps dans la simulation.
 
 À chaque chronon :
@@ -58,7 +58,7 @@ La grille est mise à jour.
 
 Des statistiques peuvent être collectées : nombre de thons, de requins, etc.
 
-🔁 Grille Torique
+### 🔁 Grille Torique
 La grille est fermée sur elle-même :
 
 Aller à droite du bord droit revient à gauche.
@@ -67,7 +67,7 @@ Monter au bord supérieur revient en bas.
 
 Cela empêche les entités de sortir de la grille.
 
-🎯 Objectif de la Simulation
+## 🎯 Objectif de la Simulation
 Observer les dynamiques de population : croissance, décroissance, extinction.
 
 Analyser l’impact des paramètres :
@@ -77,6 +77,6 @@ Taux de reproduction
 Taille de la grille...
 
 Comprendre les équilibres naturels dans un écosystème simple.
-📁 Simulation réalisée
+## 📁 Simulation réalisée
 
-![alt text](image.png)
+![alt text](assets/image.png)
