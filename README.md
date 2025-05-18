@@ -2,23 +2,22 @@
 ## 📁 Structure du projet
 WATOR/
 ├── src/
-│   ├── core/
-│   │   ├── __init__.py
-│   │   ├── config.py          # Paramètres de simulation
-│   │   ├── fish.py            # Classe de base pour les créatures marines
-│   │   ├── shark.py           # Classe Shark (prédateur)
-│   │   ├── tuna.py            # Classe Tuna (proie)
-│   │   ├── planet.py          # Grille de simulation (monde torique)
-│   │   └── simulation.py      # Moteur principal de simulation
-│   └── ui/
-│       ├── __init__.py
-│       └── window.py          # Interface graphique
+│ ├── core/
+│ │ ├── init.py
+│ │ ├── config.py # Paramètres de simulation
+│ │ ├── fish.py # Classe de base pour les créatures marines
+│ │ ├── shark.py # Classe Shark (prédateur)
+│ │ ├── tuna.py # Classe Tuna (proie)
+│ │ ├── planet.py # Grille de simulation (monde torique)
+│ │ └── simulation.py # Moteur principal de simulation
+│ └── ui/
+│ ├── init.py
+│ └── window.py # Interface graphique
 ├── assets/
-│   ├── tuna.png               # Image du thon
-│   ├── shark.png              # Image du requin
-├── main.py                    # Point d'entrée du programme
-├── requirements.txt           # Dépendances du projet
-## 🌐 Principe Général
+│ ├── tuna.png # Image du thon
+│ └── shark.png # Image du requin
+├── main.py # Point d'entrée du programme
+└── requirements.txt # Dépendances du projet
 Wa-Tor est une simulation d’écosystème marin où thons (tuna) et requins (sharks) interagissent sur une grille torique (le monde "boucle" sur lui-même comme un globe).
 
 L'objectif est d'observer l'évolution des populations et l'équilibre naturel entre proies et prédateurs.
@@ -28,11 +27,11 @@ Rôle : Proies
 
 Comportement :
 
-Se déplacent aléatoirement vers une case vide voisine.
+- Se déplacent aléatoirement vers une case vide voisine.
 
-Se reproduisent après un certain nombre de chronons (TUNA_REPRODUCTION_TIME).
+- Se reproduisent après un certain nombre de chronons (TUNA_REPRODUCTION_TIME).
 
-Ne meurent pas de faim.
+- Ne meurent pas de faim.
 
 ### 🦈 Les Requins (Shark)
 Rôle : Prédateurs
