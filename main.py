@@ -1,4 +1,4 @@
-from src.core.fish import Fish
-fish1 = Fish( 1,2)
+import tkinter as tk
 
-print(fish1.get_neighbors())
+if __name__ == "__main__":
+
