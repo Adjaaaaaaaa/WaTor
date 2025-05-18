@@ -4,10 +4,33 @@ from .shark import Shark
 import random
 
 class Planet:
-    def __init__(self):
+    """
+    Represents the simulation world as a 2D toroidal grid populated with Tuna and Sharks.
+
+    Attributes:
+    grid : 2D list representing the simulation grid. 
+    Each cell may contain a Tuna, Shark, or None.
+    """
+    def __init__(self)-> None:
+        """
+        Initializes the planet with an empty grid based on the configured WIDTH and HEIGHT.
+
+        Returns:
+        None
+        """
         self.grid = [[None for _ in range(WIDTH)] for _ in range(HEIGHT)]
 
-    def populate(self):
+    def populate(self)-> None:
+        """
+        Populates the grid randomly with Tuna and Shark instances based on
+        configuration values (NB_TUNA and NB_SHARK).
+
+        Tuna and Sharks are created with their respective reproduction times and
+        assigned to random empty positions in the grid.
+
+        Returns:
+        None
+        """
         # place NB_TUNA thons aléatoirement
         empty_cells = [(x, y) for y in range(HEIGHT) for x in range(WIDTH)]
         random.shuffle(empty_cells)

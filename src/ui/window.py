@@ -7,10 +7,42 @@ from src.core.simulation import Simulation
 from src.core.planet import Planet
 
 class WaTor:
-    def __init__(self, screen):
+    """
+    Main application class for the Wa-Tor simulation.
+
+    Handles the UI setup, drawing the simulation grid, user interactions,
+    and displaying simulation statistics and history.
+
+    Attributes:
+    screen (tk.Tk): The main tkinter window.
+    planet (Planet): The simulation environment containing entities.
+    simulation (Simulation): The simulation controller.
+    width (int): Grid width.
+    height (int): Grid height.
+    tuna_img (ImageTk.PhotoImage): Image used to display Tuna.
+    tuna_icon_img (ImageTk.PhotoImage): Small icon for Tuna in stats.
+    shark_img (ImageTk.PhotoImage): Image used to display Shark.
+    shark_icon_img (ImageTk.PhotoImage): Small icon for Shark in stats.
+    canvas (tk.Canvas): Canvas where the simulation grid is drawn.
+    start_btn (tk.Button): Button to start/pause simulation.
+    reset_btn (tk.Button): Button to reset simulation.
+    stop_btn (tk.Button): Button to stop simulation.
+    history_btn (tk.Button): Button to show population history.
+    history (list): List storing population counts per chronon.
+    """
+    def __init__(self, screen: tk.Tk)->None:
+        """
+        Initializes the Wa-Tor application with UI elements and simulation setup.
+
+        Args:
+        screen (tk.Tk): The main tkinter window.
+
+        Returns:
+        None
+        """
         self.screen = screen
         self.screen.title("Simulation Wa-Tor")
-        self.screen.state('zoomed')  # plein écran (optionnel)
+        #self.screen.state('zoomed')  # plein écran (optionnel)
 
         self.planet = Planet()
         self.planet.populate()
@@ -46,11 +78,27 @@ class WaTor:
 
         self.draw()
 
-    def toggle_simulation(self):
+    def toggle_simulation(self)-> None:
+        """
+        Toggles the simulation state between running and paused,
+        and updates the start button label accordingly.
+
+        Returns:
+        None
+        """
         self.simulation.toggle_simulation()
         self.start_btn.config(text="Pause" if self.simulation.running else "Start")
 
-    def draw(self):
+    def draw(self)->None:
+        """
+        Draws the current state of the simulation grid on the canvas,
+        including the fish images and statistics labels.
+
+        Also updates the population history.
+
+        Returns:
+        None
+        """
         self.canvas.delete("all")
         tuna_count = 0
         shark_count = 0
@@ -96,7 +144,14 @@ class WaTor:
         self.shark_icon.pack(side="left")
         self.shark_label.pack(side="left", padx=5)
 
-    def show_history(self):
+    def show_history(self)->None:
+        """
+        Opens a new window displaying the full history of the population
+        counts of Tuna and Sharks per chronon in a scrollable text box.
+
+        Returns:
+        None
+        """
         history_window = tk.Toplevel(self.screen)
         history_window.title("Historique complet")
 

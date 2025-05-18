@@ -2,13 +2,43 @@ from .config import WIDTH, HEIGHT
 import random
 
 class Simulation:
+    """
+    Manages the main loop and logic of the Wa-Tor simulation.
+
+    Controls the simulation state, handles entity behavior, and updates the graphical interface.
+    
+    Attributes:
+    app: Reference to the main application (UI and planet).
+    chronon (int): Current simulation time step.
+    running (bool): Indicates whether the simulation is running.
+    grid : Simulation grid storing entities.
+    """
     def __init__(self, app) -> None:
+        """
+        Initializes the Simulation object.
+
+        Args:
+        app: Reference to the main application, which holds the planet and UI.
+
+        Returns:
+        None
+        """
         self.app = app
         self.chronon = 0
         self.running = False
         self.grid = [[None for _ in range(WIDTH)] for _ in range(HEIGHT)]
 
-    def reset(self):
+    def reset(self) -> None:
+        """
+        Resets the simulation to its initial state:
+        - Chronon counter set to 0.
+        - Simulation paused.
+        - Grid cleared and repopulated.
+        - UI redrawn.
+
+        Returns:
+        None
+        """
         self.chronon = 0
         self.running = False
         self.grid = [[None for _ in range(WIDTH)] for _ in range(HEIGHT)]
@@ -16,16 +46,44 @@ class Simulation:
         self.app.planet.populate()
         self.app.draw()
 
-    def stop_simulation(self, screen):
+    def stop_simulation(self, screen) -> None:
+        """
+        Stops the simulation and closes the UI window.
+
+        Args:
+        screen: The GUI screen or window to be destroyed.
+
+        Returns:
+        None
+        """
         self.running = False
         screen.destroy()
 
-    def toggle_simulation(self):
+    def toggle_simulation(self) -> None:
+        """
+        Toggles the simulation state:
+        - Starts the simulation loop if it was stopped.
+        - Pauses it if it was running.
+
+        Returns:
+        None
+        """
         self.running = not self.running
         if self.running:
             self.simulate()
 
-    def simulate(self):
+    def simulate(self) -> None:
+        """
+        Executes one step (chronon) of the simulation:
+        - Increments time step.
+        - Shuffles entity positions for randomized actions.
+        - Ensures each entity acts only once per chronon.
+        - Updates the UI.
+        - Schedules the next step after 200ms.
+
+        Returns:
+        None
+        """
         if not self.running:
             return
         self.chronon += 1
