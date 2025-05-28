@@ -9,6 +9,7 @@
 Wa-Tor est une simulation d’écosystème marin où thons (tuna) et requins (sharks) interagissent sur une grille torique (le monde "boucle" sur lui-même comme un globe).
 
 L'objectif est d'observer l'évolution des populations et l'équilibre naturel entre proies et prédateurs.
+Ce projet a été réalisé dans le cadre de la formation "Développeur en Intelligence Artificielle" dispensée par Simplon.co.
 
 ### 🐟 Les Thons (Tuna)
 Rôle : Proies
